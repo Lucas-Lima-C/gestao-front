@@ -34,6 +34,12 @@
               <span class="nav-text">Tarefas</span>
             </router-link>
           </li>
+          <li>
+            <router-link to="/config" class="has-arrow ai-icon">
+              <i class="fas fa-cog"></i>
+              <span class="nav-text">Configurações</span>
+            </router-link>
+          </li>
         </ul>
       </div>
     </div>

@@ -13,7 +13,9 @@ import {Pagination} from 'vue-pagination-2';
 import vueDebounce from 'vue-debounce'
 import swal from "sweetalert";
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
+import vSelect from "vue-select";
 import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
+import 'vue-select/dist/vue-select.css';
 
 
 const translation = {
@@ -50,6 +52,7 @@ Vue.use(vueDebounce, {
     defaultTime: '2800ms'
 })
 
+Vue.component('v-select', vSelect)
 Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
 
 export const store = new Vuex.Store(mainStore);

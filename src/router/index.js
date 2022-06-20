@@ -7,6 +7,8 @@ import Home from './home'
 import Login from './login'
 import User from './user'
 import Task from './task'
+import Config from './config'
+
 
 Vue.use(Router);
 
@@ -19,6 +21,7 @@ const router = new Router({
         Home,
         User,
         Task,
+        Config,
     ]
 });
 
