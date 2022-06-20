@@ -113,12 +113,12 @@ export default {
       const self = this;
       const api =
         self.$store.state.api +
-        "task/finishTask/" + props.row.id;
+        "tasks/finishTask/" + props.row.id;
       self.$http
         .post(api)
         .then((response) => {
           self.$message("Sucesso", "Tarefa concluída com sucesso", "success");
-          self.$refs.tasksTable.$refs.table.refresh();
+          self.$refs.tasksCrud.$refs.table.refresh();
           $("#page_loader").hide();
         })
         .catch((error) => {

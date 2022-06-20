@@ -26,14 +26,12 @@
                           placeholder=""
                         />
                       </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-6 text-center" style="justify-content: center; display: grid;">
                         <label for="password">
                           <span class="required">*</span> Data de Conclusão:
                         </label>
-                        <div style="width:45%">
                           <VueCtkDateTimePicker
+                            style="width:100%"
                             color="#1194d0"
                             :only-date="true"
                             :no-header="true"
@@ -44,12 +42,30 @@
                             formatted="LL"
                             v-model="task.date_of_conclusion"
                           ></VueCtkDateTimePicker>
-                        </div>
                       </div>
                     </div>
-                    <div class="form-row">
-                      <div class="form-group col-md-6">
-                        <button class="btn btn-approve" @click="finishTask()">Concluir Tarefa</button>
+                    <div class="form-row text-center">
+                      <div class="form-group col-md-12">
+                        <label for="inputEmail4">
+                          <span class="required"></span> Status:
+                        </label>
+                        <h4>
+                        <span
+                          class="badge"
+                          :class="[task.status == 'Concluido' ? 'pastel-green' : task.status == 'Pendente' ? 'pastel-yellow' : 'pastel-red']"
+                        >{{task.status == 'Concluido' ? 'Concluído' : task.status == 'Pendente' ? 'Pendente' : 'Atrasado'}}</span>
+                        </h4>
+                      </div>
+                    </div>
+                    <div v-if="task.status != 'Concluido'" class="form-row text-center">
+                      <div class="form-group col-md-12">
+                        <input
+                            id="finishTask"
+                            type="checkbox"
+                            class="cool-input"
+                            v-model="finishTask"
+                        />
+                        <label for="finishTask">Concluir Tarefa</label>
                       </div>
                     </div>
                     <hr />
@@ -57,7 +73,7 @@
                       <span class="required">*</span>
                       <strong>Campos obrigatórios</strong>
                     </span>
-                    <div class="block text-right">
+                    <div class="block text-right" style="cursor: pointer">
                       <a class="btn btn-add" @click="save">
                         Salvar
                         <i class="fa fa-save"></i>
@@ -81,6 +97,7 @@ export default {
     return {
       nowDate: moment().format("YYYY-MM-DD"),
       previewImage: null,
+      finishTask: false,
       task: {
         title: "",
         date_of_conclusion: "",
@@ -96,6 +113,9 @@ export default {
 
       fd.append("title", self.task.title);
       fd.append("date_of_conclusion", self.task.date_of_conclusion);
+      if(this.finishTask == true){
+        fd.append("status", 'Concluido');
+      }
 
       fd.append("_method", "PUT");
 
@@ -134,20 +154,6 @@ export default {
           self.$message(null, error.response.data, "error");
         });
     },
-    finishTask: function(){
-      const self = this;
-      const api = self.$store.state.api + "tasks/finishTask/" + self.task.id;
-
-      self.$http
-        .get(api)
-        .then((response) => {
-          self.$message("Sucesso", "Tarefa concluída com sucesso", "success");
-          this.$router.push("/tasks");
-        })
-        .catch((error) => {
-          self.$message(null, error.response.data, "error");
-        });
-    }
   },
   mounted: function () {
     const self = this;
@@ -168,4 +174,29 @@ export default {
   background: linear-gradient(to right, #000, #666);
   color: #fff !important ;
 }
+
+.cool-input:not(:checked), 
+.cool-input:checked {
+  position: absolute;
+  left: -9999%;
+}
+
+.cool-input + label {
+  display: inline-block;
+  padding: 6px;
+  cursor: pointer;
+  background-color: white;
+  border-radius: .25rem;
+  color: #707070;
+  font-size: 14px;
+  font-weight: bold;
+  transition: box-shadow .4s;
+  border: 2px solid green
+}
+
+.cool-input:checked + label {
+  color:white;
+  box-shadow: inset 0 0 0 50px green;
+  }
+
 </style>
