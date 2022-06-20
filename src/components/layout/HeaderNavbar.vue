@@ -10,7 +10,7 @@
             <button class="btn btn-profile dropdown-toggle" type="button" id="dropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{ $store.getters.user.name }}
             </button>
-            <div style="width:120px;" class="dropdown-menu" aria-labelledby="dropdownProfile">
+            <div style="width:120px; cursor:pointer" class="dropdown-menu" aria-labelledby="dropdownProfile">
               <a class="dropdown-item clickable" @click="logout()"><i class="fas fa-sign-out-alt"></i>Sair</a>
             </div>
           </div>
@@ -31,7 +31,6 @@ export default {
         .post(api)
         .then(response => {
           localStorage.removeItem("token");
-
           self.$router.push({ path: "/login" });
         })
         .catch(error => {

@@ -91,7 +91,7 @@
                         />
                         <span class="focus-border"></span>
                       </div>
-                      <button @click="forgotPasswor" class="btn btn-resend">
+                      <button @click="forgotPassword" class="btn btn-resend">
                         <span>Enviar</span>
                       </button>
                       <small id="forget" class="form-text float-right">
@@ -172,7 +172,7 @@ export default {
         this.activatedCaps = false;
       }
     },
-    forgotPasswor() {
+    forgotPassword() {
       const self = this;
       const api = this.$store.state.api + "user/recovery";
 
@@ -182,14 +182,14 @@ export default {
         })
         .then((response) => {
           //$("#modalSenha").modal("hide");
-          // self.$message(
-            // "Sucesso",
-            // "Um e-mail foi enviado com as instruções necessárias",
-            // "success"
-          // );
+          self.$message(
+            "Sucesso",
+            "Um e-mail foi enviado com as instruções necessárias",
+            "success"
+          );
         })
         .catch((error) => {
-          //self.$message("Erro", error.response.data, "error");
+          self.$message("Erro", error.response.data, "error");
         });
     },
   },

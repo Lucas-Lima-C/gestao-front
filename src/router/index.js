@@ -50,4 +50,12 @@ router.afterEach((to, from) => {
     }
 });
 
+router.onError(error =>{    
+
+    if (/loading chunk \d* failed./i.test(error.message) && navigator.onLine) {
+        window.location.reload()
+    }
+
+}); // onError
+
 export default router
