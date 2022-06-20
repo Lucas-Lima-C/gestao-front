@@ -104,7 +104,7 @@
                         Salvar
                         <i class="fa fa-save"></i>
                       </a>
-                      <router-link to="/users" class="btn btn-back">
+                      <router-link to="/users" class="btn btn-back float-left">
                         <i class="fa fa-arrow-left"></i> Voltar
                       </router-link>
                     </div>

@@ -6,6 +6,7 @@ import { store } from '../main.js'
 import Home from './home'
 import Login from './login'
 import User from './user'
+import Task from './task'
 
 Vue.use(Router);
 
@@ -17,6 +18,7 @@ const router = new Router({
         Login,
         Home,
         User,
+        Task,
     ]
 });
 

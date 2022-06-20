@@ -1,137 +1,163 @@
 <template>
-    <div>
+  <div>
+    <div class="row mt-3">
+      <div class="col-md-12">
         <base-crud
-                crudName="Usuários"
-                newText="Novo Usuário"
-                :table="userTable"
-                :columns="columns"
-                :options="options"
-                :endPoint='endPoint'
-                :enableAdd="true"
-                :enableEdit="true"
-                :enableDelete="true"
-                :enableView="true"
-                :dataForm="dataForm"
+          :ref="'tasksCrud'"
+          crudName="Tarefas"
+          newText="Nova Tarefa"
+          :table="table"
+          :columns="columns"
+          :options="options"
+          :endPoint="endPoint"
+          :enableAdd="true"
+          :enableEdit="true"
+          :enableDelete="true"
+          :enableView="true"
+          :extra="extra"
+          :dataForm="dataForm"
+          @finishTask="finishTask"
         >
         </base-crud>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-    import BaseCrud from '../Base/BaseCrud'
+import BaseCrud from "../Base/BaseCrud";
 
-    export default {
-        data: function () {
-            return {
-                userTable: 'userTable',
-                users: [],
-                pages: [],
-                url: '',
-                columns: ['id', 'photo', 'name', 'email', 'actions'],
-                tableData: ['id', 'name', 'photo', 'name', 'email'],
-                options: {
-                    sortable: ['id', 'name'],
-                    pagination: {chunk: 10, dropdown: false, nav: 'scroll' },
-                    perPage: 10,
-                    perPageValues: [10,25,50,100],
-                    headings: {
-                        'id': 'ID',
-                        'photo' : 'Foto',
-                        'name' : 'Nome',
-                        'email' : 'E-mail',
-                        'actions' : 'Ações'
-                    }
-                },
-                endPoint: 'users/',
-
-                dataForm: {
-                  title: {
-                    add: 'Novo Usuário',
-                    edit: 'Editar Usuário',
-                    view: 'Visualizar Usuário',
-                    icon: 'fa fa-user-circle'
-                  },
-                  button: {
-                    back: '/users'
-                  },
-                  url: {
-                    model: 'users'
-                  },
-                  messages: {
-                    success: {
-                      add: 'Usuário cadastrado com sucesso!',
-                      edit: 'Usuário alterado com sucesso!'
-                    }
-                  },
-                  fields: [
-                    {
-                      name: 'name',
-                      model: 'name',
-                      label: 'Nome',
-                      type: 'text',
-                      isRequired: {
-                        add: true,
-                        edit: false,
-                      },
-                      placeholder: 'Digite o nome do usuário',
-                      class: '',
-                      length: "12|6|3",
-                      offset: null
-                    },
-                    {
-                      name: 'email',
-                      model: 'email',
-                      label: 'Email do Usuário',
-                      type: 'email',
-                      isRequired: {
-                        add: true,
-                        edit: false,
-                      },
-                      placeholder: 'Digite o e-mail do usuário',
-                      class: '',
-                      length: "4",
-                      offset: null
-                    },
-                    {
-                      name: 'password',
-                      model: 'password',
-                      label: 'Senha',
-                      type: 'password',
-                      isRequired: {
-                        add: true,
-                        edit: false,
-                      },
-                      placeholder: '***********',
-                      class: '',
-                      length: "4",
-                      offset: null
-                    },
-                    {
-                      name: 'photo',
-                      model: 'photo',
-                      label: 'Foto',
-                      type: 'file',
-                      isRequired: {
-                        add: true,
-                        edit: false,
-                      },
-                      placeholder: '',
-                      class: '',
-                      length: "12",
-                      offset: null
-                    },
-                  ]
-                }
-            }
+export default {
+  data: function () {
+    return {
+      table: "tasksTable",
+      showMessageImport: false,
+      pages: [],
+      url: "",
+      columns: [
+        "id",
+        "title",
+        "status",
+        "date_of_conclusion",
+        "actions",
+      ],
+      tableData: ["id", "title", "status", "date_of_conclusion"],
+      extra: [
+        {
+          id: 1,
+          label: "",
+          class: "btn btn-crud edit",
+          title: "Concluir Tarefa",
+          name: "finishTask",
+          icon: "fas fa-check",
         },
-        components: {
-            BaseCrud
-        }
-    }
+      ],
+        options: {
+        cellClasses:{
+          id: [
+            {
+                class:'adjustWidth',
+                condition: row => true
+            }
+          ]
+        },
+        filterByColumn: true,
+        debounce: 1000,
+        filterable: ["id", "title", "status", "date_of_conclusion"],
+        pagination: { chunk: 10, dropdown: false, nav: "scroll" },
+        perPage: 10,
+        perPageValues: [10, 25, 50, 100],
+        headings: {
+          id: "ID",
+          title: "Nome",
+          status: "Status",
+          date_of_conclusion: "Data de Conclusão",
+          actions: "Ações",
+        },
+        texts: {
+          filterBy: "Filtrar",
+          defaultOption: "Selecione",
+        },
+        listColumns: {
+        },
+        templates: {
+          date_of_conclusion(h, row, index) {
+            return moment(row.date_of_conclusion).format("DD/MM/YYYY");
+          },
+        },
+        requestFunction: function (data) {
+          let requestData = {};
+
+          let query = this.$parent.$parent.query(data.query);
+          requestData.params = data;
+          requestData.params.query = "";
+          requestData.params.with = "";
+
+          return this.$http.get(this.url + "?" + query, requestData).catch(
+            function (e) {
+              this.dispatch("error", e);
+            }.bind(this)
+          );
+        },
+      },
+      endPoint: "tasks/",
+      dataForm: {},
+    };
+  },
+  components: {
+    BaseCrud,
+  },
+  methods: {
+    finishTask(props) {
+      $("#page_loader").show();
+      const self = this;
+      const api =
+        self.$store.state.api +
+        "task/finishTask/" + props.row.id;
+      self.$http
+        .post(api)
+        .then((response) => {
+          self.$message("Sucesso", "Tarefa concluída com sucesso", "success");
+          self.$refs.tasksTable.$refs.table.refresh();
+          $("#page_loader").hide();
+        })
+        .catch((error) => {
+          self.$message("Erro", error.response.data, "error");
+          $("#page_loader").hide();
+        });
+    },
+    makeFormData: function () {
+      const self = this;
+      let fd = new FormData();
+
+      let fileImport = document.getElementById("fileImport");
+
+      fd.append("fileImport", fileImport.files[0] ? fileImport.files[0] : "");
+
+      return fd;
+    },
+    query: function (query) {
+      let columns = {
+        id: "id",
+        title: "title",
+        status: "status",
+        date_of_conclusion: "date_of_conclusion",
+      };
+      let filters = "";
+      $.each(query, function (index, value) {
+        filters += columns[index] + "=" + value + "&";
+      });
+      return filters;
+    },
+    openInput() {
+      document.getElementById("fileImport").click();
+    },
+  },
+};
 </script>
 
 <style scoped>
-    .VuePagination {
-        text-align: center;
-    }
+.VuePagination {
+  text-align: center;
+}
 </style>

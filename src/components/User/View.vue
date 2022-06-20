@@ -5,7 +5,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <div class="card-title">Visualizar Perfil</div>
+              <div class="card-title">Visualizar Usuário</div>
             </div>
             <div class="card-body">
               <div class="user-img">
@@ -25,7 +25,7 @@
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label for="userName">
-                          <span class="required">*</span> Nome:
+                          <span class="required"></span> Nome:
                         </label>
                         <input
                           type="text"
@@ -37,7 +37,7 @@
                       </div>
                       <div class="form-group col-md-6">
                         <label for="inputEmail4">
-                          <span class="required">*</span> Email:
+                          <span class="required"></span> Email:
                         </label>
                         <input
                           disabled
@@ -52,7 +52,7 @@
                     </div>
                     <hr />
                     <div class="block text-right">
-                      <router-link to="/users" class="btn btn-back">
+                      <router-link to="/users" class="btn btn-back float-left">
                         <i class="fa fa-arrow-left"></i> Voltar
                       </router-link>
                     </div>

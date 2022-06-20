@@ -64,6 +64,21 @@
                 title="Excluir"
               ></i>
             </button>
+            <template v-for="extra in extra">
+              <a data-toggle="tooltip" :title="extra.title" :key="extra.id"
+               :class="'clickable ' + extra.class" @click="callExtra(extra.name, props, props.row, props.index)"
+                v-if="showExtra(props, extra)"
+               >
+               <i v-if="extra.icon" :class='extra.icon'></i>
+               {{extra.label}}
+              </a>
+            </template>
+          </div>
+          <div slot="status" slot-scope="props">
+            <span
+              class="badge"
+              :class="[props.row.status == 'Concluido' ? 'pastel-green' : props.row.status == 'Pendente' ? 'pastel-yellow' : 'pastel-red']"
+            >{{props.row.status == 'Concluido' ? 'Concluído' : props.row.status == 'Pendente' ? 'Pendente' : 'Atrasado'}}</span>
           </div>
           <div slot="photo" slot-scope="props">
             <img v-if="props.row.photo" :src="props.row.photo" alt class="photo" />
@@ -72,14 +87,11 @@
         </v-server-table>
       </div>
     </div>
-
-    <BaseForm :dataForm="dataForm" />
   </div>
 </template>
 
 <script>
 import { Pagination } from "vue-pagination-2";
-import BaseForm from "./BaseForm";
 
 export default {
   data: function () {
@@ -101,6 +113,7 @@ export default {
     enableEdit: Boolean,
     enableDelete: Boolean,
     enableView: Boolean,
+    extra: Array,
     dataForm: Object,
   },
   computed: {
@@ -111,6 +124,13 @@ export default {
     },
   },
   methods: {
+    callExtra(name, props, row, index) {
+      this.$emit(name, {
+        props,
+        row,
+        index,
+      });
+    },
     edit(id) {
       this.$router.push({
         path: this.endPoint + "edit/" + id,
@@ -162,10 +182,15 @@ export default {
         }
       });
     },
+    showExtra(props, extra){
+        if(extra.name == 'finishTask' && props.row.status == 'Concluido'){
+            return false
+        }
+        return true
+    }
   },
   components: {
     Pagination,
-    BaseForm,
   },
 };
 </script>

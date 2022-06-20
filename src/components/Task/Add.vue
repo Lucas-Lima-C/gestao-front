@@ -1,140 +1,133 @@
 <template>
-    <div>
-        <div class="panel animated fadeInRightBig">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <span class="title">
-                        <b>Novo Usuário</b>
-                        <i class="fa fa-user-circle" style="float:right;margin-top:6px;font-size:21px;"></i>
-
-                        <hr>
+  <div>
+    <div class="main-content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Adicionar Tarefa</div>
+            </div>
+            <div class="card-body">
+              <hr />
+              <br />
+              <div class="row">
+                <div class="col-md-12">
+                  <form action>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="Name">
+                          <span class="required">*</span> Nome:
+                        </label>
+                        <input
+                          autocomplete="new-password"
+                          type="text"
+                          id="Name"
+                          class="form-control"
+                          v-model="task.title"
+                          placeholder=""
+                        />
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="password">
+                          <span class="required">*</span> Data de Conclusão:
+                        </label>
+                        <div style="width:45%">
+                          <VueCtkDateTimePicker
+                            color="#1194d0"
+                            :only-date="true"
+                            :no-header="true"
+                            :no-button-now="true"
+                            :auto-close="true"
+                            label="Selecione a data"
+                            :min-date="nowDate"
+                            formatted="LL"
+                            v-model="task.date_of_conclusion"
+                          ></VueCtkDateTimePicker>
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                    <span class="required_fields">
+                      <span class="required">*</span>
+                      <strong>Campos obrigatórios</strong>
                     </span>
-                </div>
-            </div>
-            <div class="panel-body">
-                <form id="form">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="name"><span class="required">*</span> Nome:</label>
-                            <input type="text" class="form-control" name="name" v-model="users.name" id="name" placeholder="Nome do usuário">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="email"><span class="required">*</span> Email do Usuário</label>
-                            <input type="email" class="form-control" name="email" v-model="users.email" id="email" placeholder="xxxxxxxx">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="password"><span class="required">*</span> Senha</label>
-                            <input type="password" name="password" class="form-control" id="password" placeholder="***********" v-model="users.password">
-                        </div>
-                    </div>
-
-                    <hr class="m-t-md m-b-md">
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="file" name="photo" id="photo">
-                        </div>
-                    </div>
-
-                    <hr>
-
                     <div class="block text-right">
-                        <router-link to="/users" class="btn btn-info">
-                            <i class="fa fa-arrow-left"></i> Voltar
-                        </router-link>
-                        <a class="btn btn-success" @click="save">
-                            Salvar <i class="fa fa-save"></i>
-                        </a>
+                      <a class="btn btn-add" @click="save">
+                        Salvar
+                        <i class="fa fa-save"></i>
+                      </a>
+                      <router-link to="/tasks" class="btn btn-back float-left">
+                        <i class="fa fa-arrow-left"></i> Voltar
+                      </router-link>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                          <p><span class="required">*</span> Campos Obrigatórios</p>
-                        </div>
-                    </div>
-                </form>
+                  </form>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </template>
-
 <script>
-    export default {
-        data() {
-            return {
-                users: {
-                    name: '',
-                    email: '',
-                    password: '',
-                    email: '',
-                    photo: ''
-                },
+export default {
+  data() {
+    return {
+      nowDate: moment().format("YYYY-MM-DD"),
+      previewImage: null,
+      task: {
+        title: "",
+        date_of_conclusion: "",
+      },
+      errors: undefined,
+    };
+  },
+  computed: {},
+  methods: {
+    makeFormData: function () {
+      const self = this;
+      let fd = new FormData();
 
-                errors: undefined
-            }
-        },
-        computed: {},
-        methods: {
-            save: function () {
-                const api = this.$store.state.api + 'users';
-                const self = this;
+      fd.append("title", self.task.title);
+      fd.append("date_of_conclusion", self.task.date_of_conclusion);
 
-                let form  = new FormData();
-                let photo = document.getElementById('photo');
+      fd.append("_method", "POST");
 
-                form.append('name', self.users.name);
-                form.append('email', self.users.email);
-                form.append('email', self.users.email);
-                form.append('password', self.users.password);
-                form.append('photo', (photo.files[0]) ? photo.files[0] : null);
+      return fd;
+    },
+    save: function () {
+      const self = this;
+      let api = self.$store.state.api + "tasks";
 
+      let fd = self.makeFormData();
 
-                self.$http.post(api, form)
-                    .then((response) => {
-                        self.users = response.data.data;
-                        self.tableData = self.users;
-
-
-                        self.$message('Sucesso', `Usuário cadastrado com sucesso`, 'success');
-
-                        self.users = {
-
-                            name: '',
-                            email: '',
-                            password: '',
-                            photo: ''
-
-                        };
-                         this.$router.push('/users');
-
-                    })
-                    .catch((error) => {
-                        self.errors = error.response.data;
-
-                        if(typeof self.errors === 'object'){
-                            let html = '<ul>';
-
-                            $.each(self.errors, function(key, value){
-                                html += '<li>' + value[0] + '</li>';
-                            });
-
-                            html += '</ul>';
-
-                            self.errors = html;
-                        }
-
-                        self.$message(null, self.errors, 'error');
-                    });
-
-
-            }
-        },
-        mounted: function(){
-
-        }
-    }
+      self.$http
+        .post(api, fd)
+        .then((response) => {
+          self.$message(
+            "Sucesso",
+            `Tarefa criada com sucesso`,
+            "success"
+          );
+          this.$router.push("/tasks");
+        })
+        .catch((error) => {
+          self.$message(null, error.response.data, "error");
+        });
+    },
+  },
+};
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.profile_user {
+  text-align: center;
+}
+.btn-user:hover,
+.btn-user[aria-expanded="true"] {
+  background: linear-gradient(to right, #000, #666);
+  color: #fff !important ;
+}
 </style>

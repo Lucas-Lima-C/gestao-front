@@ -69,7 +69,7 @@
                         Salvar
                         <i class="fa fa-save"></i>
                       </a>
-                      <router-link to="/users" class="btn btn-back">
+                      <router-link to="/users" class="btn btn-back float-left">
                         <i class="fa fa-arrow-left"></i> Voltar
                       </router-link>
                     </div>
@@ -85,8 +85,6 @@
 </template>
 
 <script>
-import BaseCrud from "../Base/BaseCrud";
-
 export default {
   name: "imageUpload",
   data() {
@@ -204,9 +202,6 @@ export default {
     if (id) {
       self.getUsers(id);
     }
-  },
-  components: {
-    BaseCrud,
   },
 };
 </script>

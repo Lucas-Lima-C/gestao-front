@@ -44,6 +44,19 @@ body {
   color: #fff !important;
 }
 
+.btn-approve {
+  border-radius: .25rem !important;
+  border: 2px solid green !important;
+  padding: 3px 5px 2px !important;
+  font-weight: 700 !important;
+}
+
+.btn-approve:hover,
+.btn-approve:focus {
+  background-color: green !important;
+  color: #fff !important;
+}
+
 .btn-delete {
   border-radius: .25rem !important;
   border: 2px solid #bb0034 !important;
@@ -708,6 +721,7 @@ a:hover {
   padding: 2px 0 0;
   width: 25px;
   height: 25px;
+  cursor: pointer;
 }
 
 .btn-crud.edit {
@@ -1140,6 +1154,10 @@ canvas {
   font-weight: 700;
   color: #fff;
   margin: 10px 0 0;
+}
+
+.adjustWidth {
+  width:7%
 }
 
 /* Backgrounds */

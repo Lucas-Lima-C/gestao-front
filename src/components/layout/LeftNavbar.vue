@@ -12,29 +12,25 @@
           <h5 class="name">
             <span class="font-w400">Olá,</span> <b>{{ $store.getters.user.name }}</b>
           </h5>
-          <p style="padding-left:62px; color:grey" class="email">{{ $store.getters.user.email }}</p>
+          <p style="color:grey" class="email text-center">{{ $store.getters.user.email }}</p>
         </div>
         <hr style="margin-left:10px; margin-top:-10px"/>
         <ul class="metismenu" id="menu">
-          <li class="">
+          <li>
             <a href="/" class="has-arrow ai-icon">
-              <i class="flaticon-381-user"></i>
+              <i class="fa fa-home"></i>
               <span class="nav-text">Home</span>
             </a>
           </li>
-          <li class="">
+          <li>
             <a href="/users" class="has-arrow ai-icon">
-              <i class="flaticon-381-user"></i>
+              <i class="fas fa-users"></i>
               <span class="nav-text">Usuários </span>
             </a>
           </li>
-          <li
-            :class="{
-              'active-menu mm-active': $route.path == '/tasks',
-            }"
-          >
+          <li>
             <router-link to="/tasks" class="has-arrow ai-icon">
-              <i class="flaticon-044-file"></i>
+              <i class="fas fa-tasks"></i>
               <span class="nav-text">Tarefas</span>
             </router-link>
           </li>

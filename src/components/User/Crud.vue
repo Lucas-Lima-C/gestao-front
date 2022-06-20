@@ -42,6 +42,14 @@ export default {
       ],
       tableData: ["id", "photo", "name", "email",],
       options: {
+        cellClasses:{
+          id: [
+            {
+                class:'adjustWidth',
+                condition: row => true
+            }
+          ]
+        },
         filterByColumn: true,
         debounce: 1000,
         filterable: ["id", "name", "email",],
