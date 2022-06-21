@@ -60,16 +60,6 @@
                           >
                         </small>
                       </div>
-                      <div class="custom-control custom-switch">
-                        <input
-                          type="checkbox"
-                          class="custom-control-input"
-                          id="remember"
-                        />
-                        <label class="custom-control-label" for="remember">
-                          Lembrar Senha
-                        </label>
-                      </div>
                       <button class="btn btn-submit" @click="login">
                         <span>Entrar</span>
                       </button>
