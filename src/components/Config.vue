@@ -4,7 +4,7 @@
     <div class="ibox animated fadeInRightBig">
       <div class="ibox-title" style="padding-left: 5px">
         <h3>
-          Configuração de E-mail
+          Notificações
         </h3>
         <hr/>
       </div>

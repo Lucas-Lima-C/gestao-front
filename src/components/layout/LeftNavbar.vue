@@ -37,7 +37,7 @@
           <li>
             <router-link to="/config" class="has-arrow ai-icon">
               <i class="fas fa-cog"></i>
-              <span class="nav-text">Configuração de E-mail</span>
+              <span class="nav-text">Notificações</span>
             </router-link>
           </li>
         </ul>
