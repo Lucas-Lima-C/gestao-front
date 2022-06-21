@@ -216,4 +216,17 @@ export default {
   margin-left: 5px;
   width: 18%;
 }
+
+.photo {
+  display: block;
+  margin-left: 5px;
+  width: 18%;
+  border-radius: 10px;
+  max-width: 400px;
+  max-height: 400px;
+  object-fit: cover;
+  height:150px; 
+  width:150px;
+}
+
 </style>
