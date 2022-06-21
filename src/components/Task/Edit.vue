@@ -40,6 +40,7 @@
                             label="Selecione a data"
                             :min-date="nowDate"
                             formatted="LL"
+                            format="YYYY-MM-DD"
                             v-model="task.date_of_conclusion"
                           ></VueCtkDateTimePicker>
                       </div>
