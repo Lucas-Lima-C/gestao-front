@@ -2,10 +2,9 @@
 
 ## Project setup
 
-1 - Configure o env.js
-```
-2 - npm install
-```
+Configure o env.js
+
+npm install
 
 ### Compiles and hot-reloads for development
 ```
