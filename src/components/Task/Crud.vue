@@ -67,7 +67,7 @@ export default {
         },
         filterByColumn: true,
         debounce: 1000,
-        filterable: ["id", "name", "date_of_conclusion"],
+        filterable: ["id", "name"],
         sortable: ["id", "name", "date_of_conclusion"],
         pagination: { chunk: 10, dropdown: false, nav: "scroll" },
         perPage: 10,
