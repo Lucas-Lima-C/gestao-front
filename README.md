@@ -1,8 +1,10 @@
 # gestao-front
 
 ## Project setup
+
+1 - Configure o env.js
 ```
-npm install
+2 - npm install
 ```
 
 ### Compiles and hot-reloads for development
