@@ -14,9 +14,9 @@
               </div>
               <div class="profile_user form-group">
                 <h3 class="user_name_max">{{ user.name }}</h3>
-                <hr class="hr" />
                 <p style="text-align: center">{{ user.email }}</p>
               </div>
+              <hr class="hr" />
               <div class="row">
                 <div class="col-md-12">
                   <form action>
@@ -46,9 +46,22 @@
                       </div>
                     </div>
                     <hr />
-
                     <div class="form-group">
-                      <label for="userPic">Foto do Perfil</label>
+                      <label
+                        v-if="previewImage"
+                        class="photo-title"
+                        for="userPic"
+                      >
+                        Foto do Perfil
+                      </label>
+                      <div class="user-img">
+                        <img
+                          v-if="previewImage"
+                          :src="previewImage"
+                          class="photo-preview"
+                        />
+                        <img v-else class="photo-preview" />
+                      </div>
                       <input
                         type="file"
                         id="userPic"
@@ -230,4 +243,16 @@ export default {
   margin-right: 5px;
   content: "✖";
 }
+.photo-preview {
+  display: block;
+  margin-left: 5px;
+  width: 18%;
+  border-radius: 10px;
+  max-width: 400px;
+  max-height: 400px;
+  object-fit: cover;
+  height:150px; 
+  width:150px;
+}
+
 </style>

@@ -19,7 +19,6 @@
                           <span class="required">*</span> Nome:
                         </label>
                         <input
-                          autocomplete="new-password"
                           type="text"
                           id="Name"
                           class="form-control"
@@ -32,7 +31,6 @@
                           <span class="required">*</span> Email:
                         </label>
                         <input
-                          autocomplete="new-password"
                           class="form-control"
                           id="Email"
                           placeholder=""
@@ -53,19 +51,6 @@
                           class="form-control"
                           v-model="users.password"
                           placeholder=""
-                        />
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="confirmPassword">
-                          <span class="required">*</span> Confirme a senha:
-                        </label>
-                        <input
-                          autocomplete="new-password"
-                          class="form-control"
-                          id="confirmPassword"
-                          placeholder=""
-                          type="password"
-                          v-model="users.password_confirmation"
                         />
                       </div>
                     </div>
@@ -131,7 +116,6 @@ export default {
         email: "",
         photo: "",
         password: "",
-        password_confirmation: "",
       },
       errors: undefined,
     };
@@ -147,7 +131,6 @@ export default {
       fd.append("name", self.users.name);
       fd.append("email", self.users.email);
       fd.append("password", self.users.password);
-      fd.append("password_confirmation", self.users.password_confirmation);
 
       fd.append("_method", "POST");
 
@@ -221,20 +204,6 @@ export default {
 };
 </script>
 <style scoped>
-.profile_user {
-  text-align: center;
-}
-.photo {
-  display: block;
-  margin-left: 5px;
-  width: 18%;
-  border-radius: 10px;
-  max-width: 400px;
-  max-height: 400px;
-  object-fit: cover;
-  height:150px; 
-  width:150px;
-}
 .btn-user:hover,
 .btn-user[aria-expanded="true"] {
   background: linear-gradient(to right, #000, #666);

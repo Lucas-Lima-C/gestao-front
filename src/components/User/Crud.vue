@@ -50,9 +50,16 @@ export default {
             }
           ]
         },
+        sortIcon: {
+            base : 'space_fas fas',
+            is: 'fa-sort',
+            up: 'fa-sort-amount-up',
+            down: 'fa-sort-amount-down'
+        },
         filterByColumn: true,
         debounce: 1000,
         filterable: ["id", "name", "email",],
+        sortable: ["id", "name", "email"],
         pagination: { chunk: 10, dropdown: false, nav: "scroll" },
         perPage: 10,
         perPageValues: [10, 25, 50, 100],
