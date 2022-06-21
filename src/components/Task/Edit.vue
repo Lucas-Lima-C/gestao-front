@@ -22,7 +22,7 @@
                           type="text"
                           id="Name"
                           class="form-control"
-                          v-model="task.title"
+                          v-model="task.name"
                           placeholder=""
                         />
                       </div>
@@ -100,7 +100,7 @@ export default {
       previewImage: null,
       finishTask: false,
       task: {
-        title: "",
+        name: "",
         date_of_conclusion: "",
       },
       errors: undefined,
@@ -112,7 +112,7 @@ export default {
       const self = this;
       let fd = new FormData();
 
-      fd.append("title", self.task.title);
+      fd.append("name", self.task.name);
       fd.append("date_of_conclusion", self.task.date_of_conclusion);
       if(this.finishTask == true){
         fd.append("status", 'Concluido');

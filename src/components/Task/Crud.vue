@@ -36,18 +36,18 @@ export default {
       url: "",
       columns: [
         "id",
-        "title",
+        "name",
         "status",
         "date_of_conclusion",
         "actions",
       ],
-      tableData: ["id", "title", "status", "date_of_conclusion"],
+      tableData: ["id", "name", "status", "date_of_conclusion"],
       extra: [
         {
           id: 1,
           label: "",
           class: "btn btn-crud edit",
-          title: "Concluir Tarefa",
+          name: "Concluir Tarefa",
           name: "finishTask",
           icon: "fas fa-check",
         },
@@ -63,13 +63,13 @@ export default {
         },
         filterByColumn: true,
         debounce: 1000,
-        filterable: ["id", "title", "status", "date_of_conclusion"],
+        filterable: ["id", "name", "status", "date_of_conclusion"],
         pagination: { chunk: 10, dropdown: false, nav: "scroll" },
         perPage: 10,
         perPageValues: [10, 25, 50, 100],
         headings: {
           id: "ID",
-          title: "Nome",
+          name: "Nome",
           status: "Status",
           date_of_conclusion: "Data de Conclusão",
           actions: "Ações",
@@ -139,7 +139,7 @@ export default {
     query: function (query) {
       let columns = {
         id: "id",
-        title: "title",
+        name: "name",
         status: "status",
         date_of_conclusion: "date_of_conclusion",
       };

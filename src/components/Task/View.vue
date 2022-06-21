@@ -19,7 +19,7 @@
                         <input
                           type="text"
                           class="form-control"
-                          v-model="task.title"
+                          v-model="task.name"
                           placeholder
                           disabled
                         />
@@ -73,7 +73,7 @@ export default {
   data() {
     return {
       task: {
-        title: "",
+        name: "",
         status: "",
         date_of_conclusion: "",
       },
