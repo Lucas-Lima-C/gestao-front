@@ -59,6 +59,6 @@ router.onError(error =>{
         window.location.reload()
     }
 
-}); // onError
+});
 
 export default router

@@ -126,7 +126,6 @@ export default {
         email: "",
         password: "",
       },
-      activatedCaps: false,
       email: "",
       password: "",
     };
@@ -165,13 +164,6 @@ export default {
           self.$message("Erro", error.response.data, "error");
         });
     },
-    keymonitor() {
-      if (event.getModifierState && event.getModifierState("CapsLock")) {
-        this.activatedCaps = true;
-      } else {
-        this.activatedCaps = false;
-      }
-    },
     forgotPassword() {
       const self = this;
       const api = this.$store.state.api + "user/recovery";
@@ -181,7 +173,6 @@ export default {
           email: self.forgot.email,
         })
         .then((response) => {
-          //$("#modalSenha").modal("hide");
           self.$message(
             "Sucesso",
             "Um e-mail foi enviado com as instruções necessárias",

@@ -29,7 +29,6 @@ export default {
   data: function () {
     return {
       table: "usersTable",
-      showMessageImport: false,
       usersCrud: {},
       pages: [],
       url: "",
@@ -102,16 +101,6 @@ export default {
     BaseCrud,
   },
   methods: {
-    makeFormData: function () {
-      const self = this;
-      let fd = new FormData();
-
-      let fileImport = document.getElementById("fileImport");
-
-      fd.append("fileImport", fileImport.files[0] ? fileImport.files[0] : "");
-
-      return fd;
-    },
     query: function (query) {
       let columns = {
         id: "id",
@@ -124,9 +113,6 @@ export default {
         filters += columns[index] + "=" + value + "&";
       });
       return filters;
-    },
-    openInput() {
-      document.getElementById("fileImport").click();
     },
   },
 };

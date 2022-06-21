@@ -36,7 +36,7 @@
                         />
                       </div>
                       <div class="form-group col-md-6">
-                        <label for="inputEmail4">
+                        <label>
                           <span class="required"></span> Email:
                         </label>
                         <input
@@ -76,10 +76,8 @@ export default {
         email: "",
         photo: "",
       },
-      errors: undefined,
     };
   },
-  computed: {},
   methods: {
     getUsers: function () {
       let self = this;
@@ -94,8 +92,7 @@ export default {
           self.users = response.data.data[0];
         })
         .catch((error) => {
-          self.errors = error.response.data;
-          self.$message(null, self.errors, "error");
+          self.$message(null, error.response.data, "error");
         });
     },
   },

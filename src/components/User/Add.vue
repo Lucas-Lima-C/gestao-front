@@ -104,10 +104,7 @@
   </div>
 </template>
 <script>
-import BaseCrud from "../Base/BaseCrud";
-
 export default {
-  name: "imageUpload",
   data() {
     return {
       previewImage: null,
@@ -117,10 +114,8 @@ export default {
         photo: "",
         password: "",
       },
-      errors: undefined,
     };
   },
-  computed: {},
   methods: {
     makeFormData: function () {
       const self = this;
@@ -136,11 +131,6 @@ export default {
 
       fd.append("photo", photo.files[0] ? photo.files[0] : "");
 
-      if (self.users.id) {
-        fd.append("id", self.users.id);
-        fd.append("_method", "PUT");
-      }
-
       return fd;
     },
     save: function () {
@@ -148,10 +138,6 @@ export default {
       let api = self.$store.state.api + "users";
 
       let fd = self.makeFormData();
-
-      if (self.users.id) {
-        api += "/" + self.users.id;
-      }
 
       self.$http
         .post(api, fd)
@@ -167,19 +153,6 @@ export default {
           self.$message(null, error.response.data, "error");
         });
     },
-    getUsers: function (id) {
-      const self = this;
-      const api = self.$store.state.api + "users/" + id;
-
-      self.$http
-        .get(api)
-        .then((response) => {
-          self.users = response.data.data[0];
-        })
-        .catch((error) => {
-          self.$message(null, error.response.data, "error");
-        });
-    },
     uploadImage(e) {
       const image = e.target.files[0];
       const reader = new FileReader();
@@ -189,17 +162,6 @@ export default {
         console.log(this.previewImage);
       };
     },
-  },
-  mounted: function () {
-    const self = this;
-
-    let id = self.$route.params.id;
-    if (id) {
-      self.getUsers(id);
-    }
-  },
-  components: {
-    BaseCrud,
   },
 };
 </script>

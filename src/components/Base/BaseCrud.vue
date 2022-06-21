@@ -96,10 +96,7 @@ import { Pagination } from "vue-pagination-2";
 export default {
   data: function () {
     return {
-      // records: [],
-      // pages: [],
       tableData: [],
-      // model: [],
     };
   },
   props: {

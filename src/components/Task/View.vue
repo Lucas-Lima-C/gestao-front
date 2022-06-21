@@ -25,7 +25,7 @@
                         />
                       </div>
                       <div class="form-group col-md-6">
-                        <label for="inputEmail4">
+                        <label>
                           <span class="required"></span> Data de Conclusão:
                         </label>
                         <input
@@ -77,10 +77,8 @@ export default {
         status: "",
         date_of_conclusion: "",
       },
-      errors: undefined,
     };
   },
-  computed: {},
   methods: {
     getTask: function () {
       let self = this;
@@ -96,8 +94,7 @@ export default {
           self.task.date_of_conclusion = moment(self.task.date_of_conclusion).format("DD/MM/YYYY")
         })
         .catch((error) => {
-          self.errors = error.response.data;
-          self.$message(null, self.errors, "error");
+          self.$message(null, error.response.data, "error");
         });
     },
   },

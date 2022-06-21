@@ -15,7 +15,6 @@
           :enableDelete="true"
           :enableView="true"
           :extra="extra"
-          :dataForm="dataForm"
           @finishTask="finishTask"
         >
         </base-crud>
@@ -31,7 +30,6 @@ export default {
   data: function () {
     return {
       table: "tasksTable",
-      showMessageImport: false,
       pages: [],
       url: "",
       columns: [
@@ -108,7 +106,6 @@ export default {
         },
       },
       endPoint: "tasks/",
-      dataForm: {},
     };
   },
   components: {
@@ -116,7 +113,6 @@ export default {
   },
   methods: {
     finishTask(props) {
-      $("#page_loader").show();
       const self = this;
       const api =
         self.$store.state.api +
@@ -126,22 +122,10 @@ export default {
         .then((response) => {
           self.$message("Sucesso", "Tarefa concluída com sucesso", "success");
           self.$refs.tasksCrud.$refs.table.refresh();
-          $("#page_loader").hide();
         })
         .catch((error) => {
           self.$message("Erro", error.response.data, "error");
-          $("#page_loader").hide();
         });
-    },
-    makeFormData: function () {
-      const self = this;
-      let fd = new FormData();
-
-      let fileImport = document.getElementById("fileImport");
-
-      fd.append("fileImport", fileImport.files[0] ? fileImport.files[0] : "");
-
-      return fd;
     },
     query: function (query) {
       let columns = {
@@ -155,9 +139,6 @@ export default {
         filters += columns[index] + "=" + value + "&";
       });
       return filters;
-    },
-    openInput() {
-      document.getElementById("fileImport").click();
     },
   },
 };

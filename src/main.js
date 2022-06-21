@@ -29,7 +29,6 @@ const translation = {
 
 const options = {
     requestFunction: function (data) {
-        // data.token = this.$store.getters.token
         return axios.get(this.url, {
             params: data
         }).catch(function (e) {

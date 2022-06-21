@@ -19,7 +19,6 @@
                           <span class="required">*</span> Nome:
                         </label>
                         <input
-                          autocomplete="new-password"
                           type="text"
                           id="Name"
                           class="form-control"
@@ -30,7 +29,7 @@
                     </div>
                     <div class="form-row">
                       <div class="form-group col-md-6">
-                        <label for="password">
+                        <label>
                           <span class="required">*</span> Data de Conclusão:
                         </label>
                         <div style="width:45%">

@@ -33,7 +33,7 @@
                         />
                       </div>
                       <div class="form-group col-md-6">
-                        <label for="inputEmail4">
+                        <label>
                           <span class="required">*</span> Email:
                         </label>
                         <input
@@ -97,11 +97,8 @@
 
 <script>
 export default {
-  name: "imageUpload",
   data() {
     return {
-      companies: [],
-      departments: [],
       user: {
         name: "",
         email: "",
@@ -111,14 +108,9 @@ export default {
         name: "",
         email: "",
       },
-      activatedCaps: false,
-      errors: undefined,
-      disabled: true,
-
       previewImage: null,
     };
   },
-  computed: {},
   methods: {
     makeFormData: function () {
       const self = this;
@@ -173,9 +165,6 @@ export default {
           self.$message(null, error.response.data, "error");
         });
     },
-    hideModal() {
-      this.$bvModal.hide("modal-1");
-    },
     uploadImage(e) {
       const image = e.target.files[0];
       const reader = new FileReader();
@@ -214,13 +203,6 @@ export default {
   height: 200px;
   object-fit: cover;
 }
-/* .btn-put-pass:hover,
-.btn-put-pass[aria-expanded="true"] {
-  background: linear-gradient(to right, #000, #666);
-  color: #fff !important ;
-} */
-
-/* Add a green text color and a checkmark when the requirements are right */
 .valid {
   color: green;
 }
@@ -232,7 +214,6 @@ export default {
   content: "✔";
 }
 
-/* Add a red text color and an "x" when the requirements are wrong */
 .invalid {
   color: red;
 }

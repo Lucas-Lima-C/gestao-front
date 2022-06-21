@@ -18,7 +18,6 @@
                           <span class="required">*</span> Nome:
                         </label>
                         <input
-                          autocomplete="new-password"
                           type="text"
                           id="Name"
                           class="form-control"
@@ -27,7 +26,7 @@
                         />
                       </div>
                       <div class="form-group col-md-6 text-center" style="justify-content: center; display: grid;">
-                        <label for="password">
+                        <label>
                           <span class="required">*</span> Data de Conclusão:
                         </label>
                           <VueCtkDateTimePicker
@@ -47,7 +46,7 @@
                     </div>
                     <div class="form-row text-center">
                       <div class="form-group col-md-12">
-                        <label for="inputEmail4">
+                        <label>
                           <span class="required"></span> Status:
                         </label>
                         <h4>
@@ -103,10 +102,8 @@ export default {
         name: "",
         date_of_conclusion: "",
       },
-      errors: undefined,
     };
   },
-  computed: {},
   methods: {
     makeFormData: function () {
       const self = this;
