@@ -9,13 +9,13 @@
             </div>
             <div class="card-body">
               <div class="form-group">
-                <img v-if="!users.photo" src="../../assets/images/profile.png" class="photo" />
-                <img v-if="users.photo" :src="users.photo" class="photo" />
+                <img v-if="!user.photo" src="../../assets/images/profile.png" class="photo" />
+                <img v-if="user.photo" :src="user.photo" class="photo" />
               </div>
               <div class="profile_user form-group">
-                <h3 class="user_name_max">{{ users.name }}</h3>
+                <h3 class="user_name_max">{{ user.name }}</h3>
                 <hr class="hr" />
-                <p style="text-align: center">{{ users.email }}</p>
+                <p style="text-align: center">{{ user.email }}</p>
               </div>
               <div class="row">
                 <div class="col-md-12">
@@ -26,10 +26,9 @@
                           <span class="required">*</span> Nome:
                         </label>
                         <input
-                          autocomplete="new-password"
                           type="text"
                           class="form-control"
-                          v-model="users.name"
+                          v-model="userForm.name"
                           placeholder
                         />
                       </div>
@@ -38,12 +37,11 @@
                           <span class="required">*</span> Email:
                         </label>
                         <input
-                          autocomplete="new-password"
                           class="form-control"
                           id="userEmail"
                           placeholder=""
                           type="text"
-                          v-model="users.email"
+                          v-model="userForm.email"
                         />
                       </div>
                     </div>
@@ -91,16 +89,14 @@ export default {
     return {
       companies: [],
       departments: [],
-      fieldTypes: {
-        password: "text",
-        password_confirm: "text",
-      },
-      users: {
+      user: {
         name: "",
         email: "",
         photo: "",
-        new_password: "",
-        password_confirmation: "",
+      },
+      userForm:{
+        name: "",
+        email: "",
       },
       activatedCaps: false,
       errors: undefined,
@@ -117,31 +113,23 @@ export default {
 
       let photo = document.getElementById("userPic");
 
-      fd.append("name", self.users.name);
-      fd.append("email", self.users.email);
-      fd.append("password", self.users.new_password);
-      fd.append("password_confirmation", self.users.password_confirmation);
+      fd.append("name", self.userForm.name);
+      fd.append("email", self.userForm.email);
 
       fd.append("_method", "POST");
 
       fd.append("photo", photo.files[0] ? photo.files[0] : "");
 
-      if (self.users.id) {
-        fd.append("id", self.users.id);
-        fd.append("_method", "PUT");
-      }
+      fd.append("id", self.user.id);
+      fd.append("_method", "PUT");
 
       return fd;
     },
     save: function () {
       const self = this;
-      let api = self.$store.state.api + "users";
+      let api = self.$store.state.api + "users/" + self.user.id;
 
       let fd = self.makeFormData();
-
-      if (self.users.id) {
-        api += "/" + self.users.id;
-      }
 
       self.$http
         .post(api, fd)
@@ -157,26 +145,16 @@ export default {
           self.$message(null, error.response.data, "error");
         });
     },
-    keymonitor() {
-      if (event.getModifierState && event.getModifierState("CapsLock")) {
-        this.activatedCaps = true;
-      } else {
-        this.activatedCaps = false;
-      }
-    },
-    comparePassword: function () {
-      if (this.users.new_password != this.users.password_confirmation || null)
-        return [];
-    },
-    getUsers: function (id) {
+    getUser: function (id) {
       const self = this;
       const api = self.$store.state.api + "users/" + id;
 
       self.$http
         .get(api)
         .then((response) => {
-          self.users = response.data.data[0];
-          self.users.password_confirmation = "";
+          self.user = response.data.data[0];
+          self.userForm.name = self.user.name;
+          self.userForm.email = self.user.email;
         })
         .catch((error) => {
           self.$message(null, error.response.data, "error");
@@ -200,7 +178,7 @@ export default {
 
     let id = self.$route.params.id;
     if (id) {
-      self.getUsers(id);
+      self.getUser(id);
     }
   },
 };
